@@ -5,10 +5,13 @@ import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import FormField from "../../components/FormField";
 import CustomButton from "../../components/CustomButton";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import { createUser } from "../../lib/appwrite";
 import { SignIn } from "../../lib/appwrite";
+import { useGlobalContext } from "@/context/GlobalProvider";
+
 const Signin = () => {
+  const { setUser, setLoggedIn } = useGlobalContext();
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -21,7 +24,9 @@ const Signin = () => {
     }
     setIsSubmitting(true);
     try {
-      const result = await SignIn(form.email, form.password);
+      const result = await getCurrentUser();
+      setUser(result);
+      setLoggedIn(true);
       router.replace("/home");
     } catch (error) {
       Alert.alert("Error", error.message);

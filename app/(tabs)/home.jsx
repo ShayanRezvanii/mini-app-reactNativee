@@ -16,9 +16,12 @@ import EmptyState from "../../components/EmptyState";
 import { getAllPosts } from "../../lib/appwrite";
 import { getLatestPosts } from "../../lib/appwrite";
 import useAppWrite from "../../lib/useAppWrite";
+import { useGlobalContext } from "@/context/GlobalProvider";
 import VideoCard from "../../components/videoCard";
 
 const Home = () => {
+  const { user, setUser, setIsLoggedIn } = useGlobalContext();
+
   const { data: posts, refetch } = useAppWrite(getAllPosts);
   const { data: latestPost } = useAppWrite(getLatestPosts);
   const [refreshing, setRefreshing] = useState(false);
@@ -54,7 +57,7 @@ const Home = () => {
                   Welcome Back
                 </Text>
                 <Text className={"font-light text-2xl text-white"}>
-                  Mini APP
+                  {user?.username}
                 </Text>
               </View>
 

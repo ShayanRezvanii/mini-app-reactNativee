@@ -6,9 +6,11 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import FormField from "../../components/FormField";
 import CustomButton from "../../components/CustomButton";
 import { Link, router } from "expo-router";
-import { createUser } from "../../lib/appwrite";
+import { createUser, getCurrentUser } from "../../lib/appwrite";
+import { useGlobalContext } from "@/context/GlobalProvider";
 
 const signUp = () => {
+  const { setUser, setLoggedIn } = useGlobalContext();
   const [form, setForm] = useState({
     username: "",
     email: "",
@@ -23,6 +25,9 @@ const signUp = () => {
     setIsSubmitting(true);
     try {
       const result = await createUser(form.email, form.password, form.username);
+
+      setUser(result);
+      setLoggedIn(true);
       router.replace("/home");
     } catch (error) {
       Alert.alert("Error", error.message);
