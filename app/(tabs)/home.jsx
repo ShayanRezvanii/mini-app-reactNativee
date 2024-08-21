@@ -32,8 +32,6 @@ const Home = () => {
     setRefreshing(false);
   };
 
-  console.log(posts);
-
   return (
     <SafeAreaView className="bg-[#161622]/90 h-full ">
       {/* <ScrollView>

@@ -36,10 +36,6 @@ const signUp = () => {
     }
   };
 
-  console.log("email" + typeof form.email);
-  // console.log(typeof form.username);
-  console.log("pass" + typeof form.password);
-
   return (
     <SafeAreaView className="bg-[#161622]/90 h-full">
       <ScrollView>
